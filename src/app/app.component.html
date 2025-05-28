@@ -1,1 +1,38 @@
-<app-ar-scene></app-ar-scene>
+<!-- src/app/app.component.html -->
+<div class="h-screen w-screen flex flex-col">
+  <!-- Main content area -->
+  <div class="flex-grow relative">
+    <app-ar-scene *ngIf="arSupported; else unsupported"></app-ar-scene>
+    
+    <ng-template #unsupported>
+      <app-unsupported-overlay 
+        [webglSupported]="webglSupported"
+        [webrtcSupported]="webrtcSupported"
+        [isAndroid]="isAndroid"
+        [isIOS]="isIOS"
+        (retry)="retry()">
+      </app-unsupported-overlay>
+    </ng-template>
+  </div>
+  
+  <!-- Debug panel -->
+  <div *ngIf="showDebug" class="debug-info bg-gray-800 text-white p-2 text-xs">
+    <div class="flex justify-between items-center mb-1">
+      <div class="font-bold">Debug Information</div>
+      <button (click)="toggleDebug()" class="text-xs bg-gray-700 px-2 py-1 rounded">Hide</button>
+    </div>
+    <div>Status: {{ statusText }}</div>
+    <div>Browser: {{ browserInfo }}</div>
+    <div>Platform: {{ platformInfo }}</div>
+    <div>WebGL: {{ webglSupported ? 'Supported' : 'Not Supported' }}</div>
+    <div>WebRTC: {{ webrtcSupported ? 'Supported' : 'Not Supported' }}</div>
+    <div>Device: {{ isMobile ? 'Mobile' : 'Desktop' }}</div>
+  </div>
+  
+  <!-- Debug toggle button -->
+  <div *ngIf="!showDebug" class="absolute bottom-2 left-2">
+    <button (click)="toggleDebug()" class="text-xs bg-gray-800 text-white px-2 py-1 rounded">
+      Show Debug
+    </button>
+  </div>
+</div>

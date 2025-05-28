@@ -1,0 +1,94 @@
+<!-- src/app/unsupported-overlay/unsupported-overlay.component.html -->
+<div class="unsupported-overlay w-full h-full flex justify-center items-center p-4">
+  <div class="max-w-2xl w-full">
+    <div class="bg-gray-800 rounded-xl shadow-xl p-6">
+      <h1 class="text-3xl font-bold mb-6 text-center text-white">AR Setup Required</h1>
+      
+      <!-- WebGL Support -->
+      <div class="feature-card bg-gray-700 rounded-lg p-4 mb-4">
+        <div class="flex items-center mb-2">
+          <div [class]="webglSupported ? 'feature-status bg-green-500' : 'feature-status bg-red-500'"></div>
+          <h2 class="text-xl font-semibold text-white">WebGL Support</h2>
+        </div>
+        <p class="text-gray-300 mb-2">
+          Required for 3D rendering. Currently 
+          <span [class]="webglSupported ? 'text-green-400 font-bold' : 'text-red-400 font-bold'">
+            {{ webglSupported ? 'enabled' : 'disabled' }}
+          </span>
+        </p>
+        
+        <div *ngIf="!webglSupported">
+          <div *ngIf="isAndroid" class="mt-3">
+            <p class="text-gray-300 font-medium mb-2">To enable on Android:</p>
+            <ol class="list-decimal pl-5 text-gray-300 space-y-1">
+              <li>Open Chrome and type <code class="bg-gray-800 px-2 py-1 rounded">chrome://flags</code></li>
+              <li>Search for "WebGL"</li>
+              <li>Enable "WebGL 2.0" and "WebGL Draft Extensions"</li>
+              <li>Restart Chrome</li>
+            </ol>
+          </div>
+          
+          <div *ngIf="isIOS" class="mt-3">
+            <p class="text-gray-300 font-medium mb-2">To enable on iOS:</p>
+            <ol class="list-decimal pl-5 text-gray-300 space-y-1">
+              <li>Go to Settings → Safari → Advanced</li>
+              <li>Toggle "WebGL" to ON</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <!-- WebRTC Support -->
+      <div class="feature-card bg-gray-700 rounded-lg p-4 mb-4">
+        <div class="flex items-center mb-2">
+          <div [class]="webrtcSupported ? 'feature-status bg-green-500' : 'feature-status bg-red-500'"></div>
+          <h2 class="text-xl font-semibold text-white">WebRTC Support</h2>
+        </div>
+        <p class="text-gray-300 mb-2">
+          Required for camera access. Currently 
+          <span [class]="webrtcSupported ? 'text-green-400 font-bold' : 'text-red-400 font-bold'">
+            {{ webrtcSupported ? 'enabled' : 'disabled' }}
+          </span>
+        </p>
+        
+        <div *ngIf="!webrtcSupported && isAndroid" class="mt-3">
+          <p class="text-gray-300 font-medium mb-2">To enable on Android:</p>
+          <ol class="list-decimal pl-5 text-gray-300 space-y-1">
+            <li>Open Chrome and type <code class="bg-gray-800 px-2 py-1 rounded">chrome://flags</code></li>
+            <li>Search for "WebRTC"</li>
+            <li>Enable "WebRTC hardware video encoding"</li>
+            <li>Restart Chrome</li>
+          </ol>
+        </div>
+      </div>
+      
+      <!-- GPU Acceleration -->
+      <div class="feature-card bg-gray-700 rounded-lg p-4 mb-6">
+        <div class="flex items-center mb-2">
+          <div class="feature-status bg-yellow-500"></div>
+          <h2 class="text-xl font-semibold text-white">GPU Acceleration</h2>
+        </div>
+        <p class="text-gray-300 mb-2">
+          Recommended for better performance
+        </p>
+        
+        <div *ngIf="isAndroid" class="mt-3">
+          <p class="text-gray-300 font-medium mb-2">To enable on Android:</p>
+          <ol class="list-decimal pl-5 text-gray-300 space-y-1">
+            <li>Open Chrome and type <code class="bg-gray-800 px-2 py-1 rounded">chrome://flags</code></li>
+            <li>Search for "GPU"</li>
+            <li>Enable "GPU rasterization" and "Accelerated 2D canvas"</li>
+            <li>Restart Chrome</li>
+          </ol>
+        </div>
+      </div>
+      
+      <button 
+        (click)="retry.emit()"
+        class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-200"
+      >
+        Retry After Enabling Features
+      </button>
+    </div>
+  </div>
+</div>

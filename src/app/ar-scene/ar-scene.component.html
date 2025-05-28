@@ -1,6 +1,23 @@
-<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: true">
-  <a-marker preset="hiro">
-    <a-box position="0 0.5 0" material="color: red"></a-box>
-  </a-marker>
-  <a-entity camera></a-entity>
-</a-scene>
+<!-- src/app/ar-scene/ar-scene.component.html -->
+<div class="h-full w-full relative">
+  <a-scene 
+    vr-mode-ui="enabled: false"
+    renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded 
+    arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; matrixCodeType: 3x3;"
+    gesture-detector
+    id="ar-scene"
+  >
+    <a-marker preset="hiro">
+      <a-box position="0 0.5 0" material="color: red"></a-box>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <div class="landscape-warning">
+    <div class="text-center p-4 bg-black bg-opacity-70 text-white">
+      <h2 class="text-2xl mb-2">🔄 Please Rotate Your Device</h2>
+      <p class="text-lg">AR works best in landscape mode</p>
+    </div>
+  </div>
+</div>
