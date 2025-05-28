@@ -4,11 +4,24 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-	<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-<link rel="stylesheet" href="styles-5INURTSO.css"><style ng-app-id="ng">a-scene[_ngcontent-ng-c715127479]{width:100vw;height:100vh;display:block}</style></head>
-<body><!--nghm-->
-  <app-root _nghost-ng-c3984273398 ng-version="17.3.12" ngh="0" ng-server-context="ssg"><app-ar-scene _ngcontent-ng-c3984273398 _nghost-ng-c715127479 ngh="0"><a-scene _ngcontent-ng-c715127479 embedded arjs="sourceType: webcam; debugUIEnabled: true"><a-marker _ngcontent-ng-c715127479 preset="hiro"><a-box _ngcontent-ng-c715127479 position="0 0.5 0" material="color: red"></a-box></a-marker><a-entity _ngcontent-ng-c715127479 camera></a-entity></a-scene></app-ar-scene></app-root>
-<script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-AVNJYMLK.js" type="module"></script>
+	<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@4.3.1/aframe/build/aframe-ar.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            'primary-dark': '#2563EB',
+          }
+        }
+      }
+    }
+  </script>
+<link rel="stylesheet" href="styles-5INURTSO.css"><style ng-app-id="ng">.debug-info[_ngcontent-ng-c4223294042]{position:relative;z-index:9999}</style><style ng-app-id="ng">a-scene[_ngcontent-ng-c3764964446]{width:100%;height:100%;display:block}.landscape-warning[_ngcontent-ng-c3764964446]{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000000b3;color:#fff;z-index:10001;justify-content:center;align-items:center}@media screen and (orientation: portrait){.landscape-warning[_ngcontent-ng-c3764964446]{display:flex}}</style></head>
+<body class="bg-gray-900"><!--nghm-->
+  <app-root _nghost-ng-c4223294042 ng-version="17.3.12" ngh="1" ng-server-context="ssg"><div _ngcontent-ng-c4223294042 class="h-screen w-screen flex flex-col"><div _ngcontent-ng-c4223294042 class="flex-grow relative"><app-ar-scene _ngcontent-ng-c4223294042 _nghost-ng-c3764964446 ngh="0"><div _ngcontent-ng-c3764964446 class="h-full w-full relative"><a-scene _ngcontent-ng-c3764964446 vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; precision: medium;" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; matrixCodeType: 3x3;" gesture-detector id="ar-scene"><a-marker _ngcontent-ng-c3764964446 preset="hiro"><a-box _ngcontent-ng-c3764964446 position="0 0.5 0" material="color: red"></a-box></a-marker><a-entity _ngcontent-ng-c3764964446 camera></a-entity></a-scene><div _ngcontent-ng-c3764964446 class="landscape-warning"><div _ngcontent-ng-c3764964446 class="text-center p-4 bg-black bg-opacity-70 text-white"><h2 _ngcontent-ng-c3764964446 class="text-2xl mb-2">🔄 Please Rotate Your Device</h2><p _ngcontent-ng-c3764964446 class="text-lg">AR works best in landscape mode</p></div></div></div></app-ar-scene><!----><!----></div><div _ngcontent-ng-c4223294042 class="debug-info bg-gray-800 text-white p-2 text-xs"><div _ngcontent-ng-c4223294042 class="flex justify-between items-center mb-1"><div _ngcontent-ng-c4223294042 class="font-bold">Debug Information</div><button _ngcontent-ng-c4223294042 class="text-xs bg-gray-700 px-2 py-1 rounded">Hide</button></div><div _ngcontent-ng-c4223294042>Status: Initializing...</div><div _ngcontent-ng-c4223294042>Browser: </div><div _ngcontent-ng-c4223294042>Platform: </div><div _ngcontent-ng-c4223294042>WebGL: Not Supported</div><div _ngcontent-ng-c4223294042>WebRTC: Not Supported</div><div _ngcontent-ng-c4223294042>Device: Desktop</div></div><!----><!----></div></app-root>
+<script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-NSI32PLL.js" type="module"></script>
 
-<script id="ng-state" type="application/json">{"__nghData__":[{}]}</script></body></html>
+<script id="ng-state" type="application/json">{"__nghData__":[{},{"t":{"2":"t0","3":"t1","5":"t2","6":"t3"},"c":{"2":[{"i":"t0","r":1}],"3":[],"5":[{"i":"t2","r":1}],"6":[]}}]}</script></body></html>
