@@ -1,0 +1,50 @@
+{
+  "name": "demo-projects",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "serve:ssr:demo-projects": "node dist/demo-projects/server/server.mjs",
+		"start-network": "ng serve --host 0.0.0.0 --port 4200 --ssl true --ssl-key ssl/key.pem --ssl-cert ssl/cert.pem",
+  	"generate-ssl": "mkdir ssl && openssl req -x509 -newkey rsa:2048 -nodes -keyout ssl\\key.pem -out ssl\\cert.pem -days 365 -subj \"/CN=192.168.0.213\""
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.3.0",
+    "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/forms": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser-dynamic": "^17.3.0",
+    "@angular/platform-server": "^17.3.0",
+    "@angular/router": "^17.3.0",
+    "@angular/ssr": "^17.3.11",
+    "@types/three": "^0.176.0",
+    "ar.js": "^2.2.2",
+    "express": "^4.18.2",
+    "rxjs": "~7.8.0",
+    "three": "^0.176.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.14.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.11",
+    "@angular/cli": "^17.3.11",
+    "@angular/compiler-cli": "^17.3.0",
+    "@types/aframe": "^1.2.8",
+    "@types/express": "^4.17.17",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^18.18.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.4.2"
+  }
+}
