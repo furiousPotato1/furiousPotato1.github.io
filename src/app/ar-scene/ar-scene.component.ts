@@ -34,8 +34,8 @@ export class ArSceneComponent implements OnInit {
 
   private initializeCamera() {
     // Wait for A-Frame to initialize
-    const scene = document.querySelector('a-scene');
-    if (scene?.hasLoaded) {
+    const scene = document.querySelector('a-scene') as any;
+    if (scene?.Loaded) {
       this.setupCamera();
     } else {
       scene?.addEventListener('loaded', () => this.setupCamera());
