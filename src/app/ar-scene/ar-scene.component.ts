@@ -26,7 +26,56 @@ export class ArSceneComponent implements OnInit {
     if (this.isMobileDevice()) {
       this.applyMobileOptimizations();
     }
-    setTimeout(() => this.checkCameraStatus(), 1000);
+  }
+
+  ngAfterViewInit() {
+    this.initializeCamera();
+  }
+
+  private initializeCamera() {
+    // Wait for A-Frame to initialize
+    const scene = document.querySelector('a-scene');
+    if (scene?.hasLoaded) {
+      this.setupCamera();
+    } else {
+      scene?.addEventListener('loaded', () => this.setupCamera());
+    }
+  }
+
+  private setupCamera() {
+    const arSystem = (document.querySelector('a-scene') as any)?.systems?.arjs;
+    
+    if (!arSystem) {
+      console.error('AR.js system not found');
+      this.updateCameraStatus('AR.js system not initialized');
+      return;
+    }
+
+    // Check if camera is ready
+    const checkCamera = () => {
+      if (arSystem._arSource?.ready) {
+        this.isCameraActive = true;
+        this.updateCameraStatus('Camera active - Point at Hiro marker');
+      } else {
+        this.updateCameraStatus('Starting camera...');
+        setTimeout(checkCamera, 500);
+      }
+    };
+    
+    checkCamera();
+    
+    // Handle camera errors
+    arSystem._arSource.onError = (error: any) => {
+      console.error('Camera error:', error);
+      this.updateCameraStatus(`Camera error: ${error.message || error}`);
+    };
+  }
+
+  private updateCameraStatus(message: string) {
+    const statusText = document.getElementById('camera-status');
+    if (statusText) {
+      statusText.setAttribute('value', message);
+    }
   }
 
   private isMobileDevice(): boolean {
@@ -35,39 +84,36 @@ export class ArSceneComponent implements OnInit {
 
   private applyMobileOptimizations() {
     try {
-      this.lockOrientation();
+      // Remove orientation lock for now as it might interfere
+      // Add touch events
       document.body.addEventListener('touchstart', () => {
-        console.log('Touch detected - marker tracking active');
+        console.log('Touch detected - attempting to resume camera');
+        this.resumeCamera();
+      });
+      
+      // Add visibility change handler
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          this.resumeCamera();
+        }
       });
     } catch (e) {
       console.error('Mobile optimizations failed:', e);
     }
   }
 
-  private lockOrientation() {
-    const anyScreen = screen as any;
+  private resumeCamera() {
+    const scene = document.querySelector('a-scene');
+    const arSource = (scene as any)?.systems?.arjs?._arSource;
     
-    if (anyScreen.orientation?.lock) {
-      anyScreen.orientation.lock('landscape')
-        .catch((error: any) => console.log('Orientation lock failed:', error));
-    } else if (anyScreen.lockOrientation) {
-      anyScreen.lockOrientation('landscape');
-    } else if (anyScreen.mozLockOrientation) {
-      anyScreen.mozLockOrientation('landscape');
-    } else if (anyScreen.msLockOrientation) {
-      anyScreen.msLockOrientation('landscape');
-    } else {
-      console.log('Orientation lock not supported');
+    if (arSource && !arSource.ready) {
+      console.log('Resuming camera');
+      arSource.init().then(() => {
+        arSource.onResume();
+        this.updateCameraStatus('Camera resumed');
+      }).catch((error: any) => {
+        this.updateCameraStatus(`Camera error: ${error.message || error}`);
+      });
     }
-  }
-
-  checkCameraStatus(): boolean {
-    const scene = document.querySelector('a-scene') as AFrameScene | null;
-    
-    // Safe property access with optional chaining
-    const arSource = scene?.systems?.arjs?._arSource;
-    this.isCameraActive = arSource?.ready ?? false;
-    
-    return this.isCameraActive;
   }
 }

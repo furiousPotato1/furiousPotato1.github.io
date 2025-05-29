@@ -25,10 +25,38 @@ export class AppComponent implements OnInit {
   isIOS = false;
   showDebug = true; // Set to false in production
 
-  ngOnInit() {
+  async ngOnInit() {
     this.checkFeatures();
     this.updateDebugInfo();
+
+		if (this.arSupported) {
+			const hasPermission = await this.requestCameraPermission();
+			if (!hasPermission) {
+				this.statusText = 'Camera permission required';
+			}
+		}
   }
+
+	async requestCameraPermission() {
+		try {
+			if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+				const stream = await navigator.mediaDevices.getUserMedia({ 
+					video: { facingMode: 'environment' } 
+				});
+				
+				// Stop tracks immediately since AR.js will handle the camera
+				stream.getTracks().forEach(track => track.stop());
+				
+				this.statusText = 'Camera permission granted - Loading AR';
+				return true;
+			}
+			return false;
+		} catch (error) {
+			console.error('Camera permission error:', error);
+			this.statusText = `Camera error: ${(error as Error).message || 'Permission denied'}`;
+			return false;
+		}
+	}
 
   private checkFeatures() {
     // Set device info
