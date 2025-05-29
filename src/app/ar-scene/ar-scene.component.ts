@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit  } from '@angular/core';
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit  } from '@angular/core';
 
 type AFrameScene = HTMLElement & {
   systems: {
@@ -19,7 +19,7 @@ type AFrameScene = HTMLElement & {
   templateUrl: './ar-scene.component.html',
   styleUrl: './ar-scene.component.less'
 })
-export class ArSceneComponent implements OnInit {
+export class ArSceneComponent implements OnInit, AfterViewInit  {
 	isCameraActive = false;
 
   ngOnInit() {
